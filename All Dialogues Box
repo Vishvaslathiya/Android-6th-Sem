@@ -1,0 +1,52 @@
+AlertDialog.Builder builder = new AlertDialog.Builder(Alert_Dialog.this);
+//
+//        builder.setTitle("Hello Alert Box");
+//        builder.setMessage("THis is First Alert DIalog Box");
+//
+//        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(getApplicationContext(), "Yes is Selected", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+//
+//        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(getApplicationContext(), "No is Selected", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
+
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(androidx.drawerlayout.R.layout.custom_dialog);
+
+        final EditText editName = dialog.findViewById(R.id.editName);
+        final EditText editEmail = dialog.findViewById(R.id.editEmail);
+        final RadioGroup radioGroupGender = dialog.findViewById(R.id.radioGroupGender);
+        final RadioButton radioMale = dialog.findViewById(R.id.radioMale);
+        final RadioButton radioFemale = dialog.findViewById(R.id.radioFemale);
+
+        Button btnSubmit = dialog.findViewById(R.id.btnSubmit);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = editName.getText().toString();
+                String email = editEmail.getText().toString();
+
+                int selectedRadioButtonId = radioGroupGender.getCheckedRadioButtonId();
+                RadioButton selectedRadioButton = dialog.findViewById(selectedRadioButtonId);
+                String gender = selectedRadioButton != null ? selectedRadioButton.getText().toString() : "";
+
+                // Display a toast message with the entered data
+                String toastMessage = "Name: " + name + "\nEmail: " + email + "\nGender: " + gender;
+                Toast.makeText(Alert_Dialog.this, toastMessage, Toast.LENGTH_LONG).show();
+
+                // Dismiss the dialog
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
